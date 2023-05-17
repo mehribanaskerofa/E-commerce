@@ -1,0 +1,17 @@
+php artisan serve
+
+php artisan make:(
+controller,
+model,
+middleware
+)
+
+
+seeder:
+
+php artisan (
+db:seed
+migrate:fresh
+
+migrate:fresh --seed
+)
