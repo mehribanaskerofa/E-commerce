@@ -74,17 +74,18 @@
 {{--<script src="{{asset('_assets/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>--}}
 <!-- AdminLTE -->
 <script src="{{asset('_assets/js/adminlte.js')}}"></script>
+<script src="{{asset('_assets/js/adminlte.min.js')}}"></script>
 
 <!-- OPTIONAL SCRIPTS -->
-{{--<script src="{{asset('_assets/plugins/chart.js/Chart.min.js')}}"></script>--}}
-{{--<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
+<script src="{{asset('_assets/plugins/chart.js/Chart.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- AdminLTE for demo purposes -->
 {{--<script src="{{asset('_assets/js/demo.js')}}"></script>--}}
 
 <script src="{{asset('_assets/js/deleteform.js')}}"></script>
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-{{--<script src="{{asset('_assets/js/pages/dashboard3.js')}}"></script>--}}
+<script src="{{asset('_assets/js/pages/dashboard3.js')}}"></script>
 @yield('js')
 </body>
 </html>
