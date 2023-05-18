@@ -13,7 +13,7 @@ class AdminController extends Controller
     }
     public function loginView()
     {
-        return view('admin.login-view');
+        return view('admin.login.index');
     }
     public function login()
     {
