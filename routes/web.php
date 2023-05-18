@@ -24,4 +24,6 @@ Route::post('/admin/login',[AdminController::class,'login'])->name('admin.login'
 Route::group(['prefix'=>'admin','as'=>'admin.','middleware'=>'admin'],function () {
     Route::get('/',[AdminController::class,'index'])->name('home');
     Route::get('/logout',[AdminController::class,'logout'])->name('logout');
+
+//    Route::resource('category',Ca);
 });
