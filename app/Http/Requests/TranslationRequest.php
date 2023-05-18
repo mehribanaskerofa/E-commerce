@@ -11,8 +11,7 @@ class TranslationRequest extends FormRequest
     {
         $validations= [
             'key'=>['required', Rule::unique('translation','key')->ignore($this->route('translation')?->id)],
-            'value'=>'required|array',
-            'value.az'=>'required|string'
+            'value'=>'required|array'
         ];
         return $this->validateTranslationValue($validations);
     }

@@ -17,3 +17,6 @@ migrate:fresh --seed
 
 tinker - debug baxmaq
 )
+
+
+composer dump-autoload- composer icinde yazilmis files- helpers.php autoload edir
