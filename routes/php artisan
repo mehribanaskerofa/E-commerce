@@ -15,3 +15,5 @@ migrate:fresh
 
 migrate:fresh --seed
 )
+
+php artisan storage:link - sekil yuklemek ucun
