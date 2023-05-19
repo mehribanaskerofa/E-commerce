@@ -22,7 +22,8 @@ class CategoryController extends Controller
     }
     public function create()
     {
-        return view('admin.category.form');
+        $categories=$this->categoryService->CachedCategories();
+        return view('admin.category.form',compact($categories));
     }
     public function store(CategoryRequest $request)
     {
@@ -31,7 +32,8 @@ class CategoryController extends Controller
     }
     public function edit(CategoryModel $category)
     {
-        return view('admin.category.form',['model'=>$category]);
+        $categories=$this->categoryService->CachedCategories();
+        return view('admin.category.form',['model'=>$category,'categories'=>$categories]);
     }
     public function update(CategoryRequest $categoryRequest, CategoryModel $category)
     {

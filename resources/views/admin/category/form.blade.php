@@ -84,7 +84,24 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Key</label>
+                    <label>Parent Category</label>
+                    <select name="parent_id" class="form-control">
+                        <option value="">Select</option>
+                        @foreach($categories->where('id','!=',isset($model) ? $model->id : null) as $category)
+                            <option value="{{$category->id}}"
+                            @selected(old('parent_id',(isset($model) ? $model->parent_id : null))==$category->id)
+                            >{{$category->title}}</option>
+                        @endforeach
+
+                    </select>
+                    <input type="checkbox" name="active" value="1" @checked(old('active',$model->key ?? ''))>
+                    @error('parent_id')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label>Active</label>
                     <input type="checkbox" name="active" value="1" @checked(old('active',$model->key ?? ''))>
                     @error('active')
                     <span class="text-danger">{{$message}}</span>

@@ -23,6 +23,8 @@ class CategoryService
     {
         $data=$request->all();
         $data['image']=$this->fileUploadService->uploadFile($request->image,'categories');
+        $data['active']=$data['active'] ?? false;
+
         $model= $this->categoryRepository->save($data,new CategoryModel());
         self::ClearCached();
         return $model;
@@ -33,6 +35,8 @@ class CategoryService
         if($request->has('image')){
             $data['image']=$this->fileUploadService->replaceFile($request->image,$model->image,'categories');
         }
+        $data['active']=$data['active'] ?? false;
+
         $model=$this->categoryRepository->save($data,$model);
         self::ClearCached();
         return $model;
@@ -46,10 +50,10 @@ class CategoryService
 
     public function CachedCategories()
     {
-//        return Cache::rememberForever('categories',
-//            function (){
-//                return CategoryModel::pluck('value','key')->toArray();
-//            });
+        return Cache::rememberForever('categories',
+            function (){
+                return $this->categoryRepository->all(with:['category_translations']);
+            });
     }
 
     public static function ClearCached()
