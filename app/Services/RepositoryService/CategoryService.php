@@ -2,7 +2,8 @@
 
 namespace App\Services\RepositoryService;
 
-use App\Models\CategoryModel;
+use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use App\Services\FileUploadService;
 use Illuminate\Support\Facades\Cache;
@@ -25,7 +26,7 @@ class CategoryService
         $data['image']=$this->fileUploadService->uploadFile($request->image,'categories');
         $data['active']=$data['active'] ?? false;
 
-        $model= $this->categoryRepository->save($data,new CategoryModel());
+        $model= $this->categoryRepository->save($data,new Category());
         self::ClearCached();
         return $model;
     }
@@ -52,7 +53,7 @@ class CategoryService
     {
         return Cache::rememberForever('categories',
             function (){
-                return $this->categoryRepository->all(with:['category_translations']);
+                return $this->categoryRepository->all(with:['translations']);
             });
     }
 

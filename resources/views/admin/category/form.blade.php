@@ -70,7 +70,7 @@
                                      role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
                                     <div class="form-group">
                                         <label>Slug {{$lang}}</label>
-                                        <input type="text" placeholder="Slug {{$lang}}" name="[{{$lang}}slug]"
+                                        <input type="text" placeholder="Slug {{$lang}}" name="{{$lang}}[slug]"
                                                value="{{old("$lang.slug",isset($model) ? ($model->translateOrDefault($lang)->slug ?? '') : '')}}"
                                                class="form-control">
                                         @error("$lang.slug")
@@ -94,7 +94,6 @@
                         @endforeach
 
                     </select>
-                    <input type="checkbox" name="active" value="1" @checked(old('active',$model->key ?? ''))>
                     @error('parent_id')
                     <span class="text-danger">{{$message}}</span>
                     @enderror
@@ -102,7 +101,7 @@
 
                 <div class="form-group">
                     <label>Active</label>
-                    <input type="checkbox" name="active" value="1" @checked(old('active',$model->key ?? ''))>
+                    <input type="checkbox" name="active" value="1" @checked(old('active',$model->active ?? ''))>
                     @error('active')
                     <span class="text-danger">{{$message}}</span>
                     @enderror
@@ -112,7 +111,7 @@
                 @isset($model->image)
                     <div class="form-group">
                         {{--                <img src="{{{url('/storage/images/'.$page->image)}}}" width="100px">--}}
-                        <img src="{{asset('storage/images/'.$category->image)}}" width="100px">
+                        <img src="{{asset('storage/'.$model->image)}}" width="100px">
                     </div>
                 @endisset
                 <div class="form-group">

@@ -5,6 +5,7 @@
     $routeName='admin.category'
     }}
     <a class="btn btn-primary my-3" href="{{route($routeName.'.create')}}">Add</a>
+    <br>
     <div class="card">
         <div class="card-body">
             <table class="table table-bordered">

@@ -14,6 +14,7 @@ class CategoryRequest extends FormRequest
             'active'=>'nullable|boolean',
             'parent_id'=>'nullable|exists:categories,id'
         ];
+//        dd($this->mapLanguageValidations($data));
         return $this->mapLanguageValidations($data);
     }
     private function mapLanguageValidations($data){

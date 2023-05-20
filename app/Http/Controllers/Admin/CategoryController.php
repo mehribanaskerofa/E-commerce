@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
-use App\Models\CategoryModel;
+use App\Models\Category;
 use App\Services\FileUploadService;
 use App\Services\RepositoryService\CategoryService;
 
@@ -23,24 +23,25 @@ class CategoryController extends Controller
     public function create()
     {
         $categories=$this->categoryService->CachedCategories();
-        return view('admin.category.form',compact($categories));
+        return view('admin.category.form',['categories'=>$categories]);
     }
     public function store(CategoryRequest $request)
     {
-        $this->categoryService->store($request->all());
+        $this->categoryService->store($request);
         return redirect()->route('admin.category.index');
     }
-    public function edit(CategoryModel $category)
+    public function edit(Category $category)
     {
+
         $categories=$this->categoryService->CachedCategories();
         return view('admin.category.form',['model'=>$category,'categories'=>$categories]);
     }
-    public function update(CategoryRequest $categoryRequest, CategoryModel $category)
+    public function update(CategoryRequest $categoryRequest, Category $category)
     {
         $this->categoryService->update($categoryRequest,$category);
         return redirect()->back();
     }
-    public function destroy(CategoryModel $category)
+    public function destroy(Category $category)
     {
         $this->categoryService->delete($category);
         return redirect()->back();
