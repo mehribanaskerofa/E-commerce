@@ -16,4 +16,9 @@ class Category extends Model implements TranslatableContract
     protected $guarded=[];
     public $translationModel=CategoryTranslation::class;
     public $translatedAttributes = ['title','slug'];
+
+    public function parent()
+    {
+        return $this->belongsTo(Category::class,'parent_id','id');
+    }
 }

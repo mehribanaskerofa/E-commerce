@@ -14,6 +14,7 @@
                     <th style="width: 10px">#</th>
                     <th>Title</th>
                     <th>Slug</th>
+                    <th>Parent</th>
                     <th style="width: 50px">Edit</th>
                     <th style="width: 50px">Delete</th>
                 </tr>
@@ -24,6 +25,7 @@
                         <td>{{$model->id}}</td>
                         <td>{{$model->title}}</td>
                         <td>{{$model->slug}}</td>
+                        <td>{{$model->parent?->title ?? 'Parent category'}}</td>
                         <td>
                             <a href="{{route($routeName.'.edit',$model->id)}}" class="btn btn-warning">Edit</a>
                         </td>
