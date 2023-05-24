@@ -2,31 +2,29 @@
 
 namespace App\Services\RepositoryService;
 
-use App\Http\Requests\CategoryRequest;
-use App\Models\Category;
-use App\Repositories\CategoryRepository;
+use App\Models\Product;
+use App\Repositories\ProductRepository;
 use App\Services\FileUploadService;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 
-class CategoryService
+class ProductService
 {
-    public function __construct(protected CategoryRepository $categoryRepository,
+    public function __construct(protected ProductRepository $productRepository,
                                 protected FileUploadService $fileUploadService)
     {
     }
     public function dataAllWithPaginate()
     {
-        return $this->categoryRepository->paginate(10,['parent.translations']);
+        return $this->productRepository->paginate(10,['category.translations']);
     }
 
     public function store($request)
     {
         $data=$request->all();
-        $data['image']=$this->fileUploadService->uploadFile($request->image,'categories');
+        $data['image']=$this->fileUploadService->uploadFile($request->image,'product_images');
         $data['active']=$data['active'] ?? false;
 
-        $model= $this->categoryRepository->save($data,new Category());
+        $model= $this->productRepository->save($data,new Product());
         self::ClearCached();
         return $model;
     }
@@ -34,11 +32,11 @@ class CategoryService
     {
         $data=$request->all();
         if($request->has('image')){
-            $data['image']=$this->fileUploadService->replaceFile($request->image,$model->image,'categories');
+            $data['image']=$this->fileUploadService->replaceFile($request->image,$model->image,'product_images');
         }
         $data['active']=$data['active'] ?? false;
 
-        $model=$this->categoryRepository->save($data,$model);
+        $model=$this->productRepository->save($data,$model);
         self::ClearCached();
         return $model;
     }
@@ -47,19 +45,19 @@ class CategoryService
     {
         self::ClearCached();
         $this->fileUploadService->removeFile($model->image);
-        return $this->categoryRepository->delete($model);
+        return $this->productRepository->delete($model);
     }
 
-    public function CachedCategories()
+    public function CachedProducts()
     {
-        return Cache::rememberForever('categories',
+        return Cache::rememberForever('products',
             function (){
-                return $this->categoryRepository->all(with:['translations']);
+                return $this->productRepository->all(with:['translations']);
             });
     }
 
     public static function ClearCached()
     {
-        Cache::forget('categories');
+        Cache::forget('products');
     }
 }
