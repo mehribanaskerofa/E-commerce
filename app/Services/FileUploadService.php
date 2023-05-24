@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class FileUploadService
@@ -34,9 +35,9 @@ class FileUploadService
         $teamImageExt = explode('.', $fileName)[1];
 
         $newImageName = ($folder ? $folder . '/' : '') . $newFileName . '.' . $teamImageExt;
-        \Storage::disk($disk)->copy($filePath, $newImageName);
+        Storage::disk($disk)->copy($filePath, $newImageName);
         if ($delete_url) {
-            \Storage::disk($disk)->delete($delete_url);
+            Storage::disk($disk)->delete($delete_url);
         }
         return $newImageName;
     }
