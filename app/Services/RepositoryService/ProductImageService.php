@@ -16,7 +16,7 @@ class ProductImageService
     }
     public function dataAllWithPaginate($productId)
     {
-        return $this->productImageRepository->query()->where('product_id',$productId)->get();
+        return $this->productImageRepository->query()->where('product_id',$productId)->paginate(5);
     }
 
     public function store($request)

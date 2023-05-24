@@ -15,7 +15,7 @@
                     <th>Title</th>
                     <th>Slug</th>
                     <th>Category</th>
-                    <th>Images</th>
+                    <th style="width: 50px">Images</th>
                     <th style="width: 50px">Edit</th>
                     <th style="width: 50px">Delete</th>
                 </tr>
@@ -28,7 +28,7 @@
                         <td>{{$model->slug}}</td>
                         <td>{{$model->category->title}}</td>
                         <td>
-                            <a href="{{route('admin.product-image.index',$model->id)}}" class="btn btn-warning">Images</a>
+                            <a href="{{route('admin.product-image.index',$model->id)}}" class="btn btn-outline-info">Images</a>
                         </td>
                         <td>
                             <a href="{{route($routeName.'.edit',$model->id)}}" class="btn btn-warning">Edit</a>
