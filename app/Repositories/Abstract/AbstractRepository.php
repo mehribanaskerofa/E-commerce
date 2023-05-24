@@ -19,7 +19,7 @@ abstract class AbstractRepository
 
     public function getLatest()
     {
-        return $this->thisQuery()
+        return $this->query()
             ->orderByDesc('id')
             ->first();
     }
