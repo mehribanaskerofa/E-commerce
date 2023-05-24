@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,4 +28,6 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function () {
     Route::get('/logout',[AdminController::class,'logout'])->name('logout');
 
     Route::resource('category',CategoryController::class);
+
+    Route::resource('product',ProductController::class);
 });

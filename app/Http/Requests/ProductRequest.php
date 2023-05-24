@@ -5,14 +5,17 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class CategoryRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     public function rules(): array
     {
         $data= [
             'image'=>[Rule::requiredIf(request()->method==self::METHOD_POST),'required','image','mimes:jpg,jpeg,png'],
             'active'=>'nullable|boolean',
-            'parent_id'=>'nullable|exists:categories,id'
+            'category_id'=>'required|exists:categories,id',
+            'price'=>'required|numeric|min:0',
+            'quantity'=>'nullable|numeric|min:0',
+
         ];
         return $this->mapLanguageValidations($data);
     }
@@ -20,11 +23,13 @@ class CategoryRequest extends FormRequest
         foreach (config('app.languages') as $lang){
             $data[$lang]='required|array';
             $data["$lang.title"]='required|string|min:2';
+            $data["$lang.description"]='string';
+            $data["$lang.specification"]='required|string|min:2';
             $data["$lang.slug"]=[
                 'required','string',
-                Rule::unique('category_translations','slug')
+                Rule::unique('product_translations','slug')
                     ->where('locale',$lang)
-                    ->ignore($this->route('category')?->id,'category_id')];
+                    ->ignore($this->route('product')?->id,'product_id')];
         }
         return $data;
     }
