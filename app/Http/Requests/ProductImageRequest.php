@@ -9,12 +9,11 @@ class ProductImageRequest extends FormRequest
 {
     public function rules(): array
     {
-        $data= [
-            'image'=>[Rule::requiredIf(request()->method==self::METHOD_POST),'required','image','mimes:jpg,jpeg,png'],
-            'active'=>'nullable|boolean',
-            'product_id'=>'required|exists:products,id'
+        return [
+            'image'=>['required','image','mimes:jpg,jpeg,png'],
+            'product_id'=>'required|exists:products,id',
+            'sort_order'=>'nullable|numeric'
         ];
-        return $this->mapLanguageValidations($data);
     }
 
 }

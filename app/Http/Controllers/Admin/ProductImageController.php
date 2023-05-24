@@ -14,24 +14,23 @@ class ProductImageController extends Controller
 
     }
 
-    public function index()
+    public function index($productId)
     {
-        $models=$this->productImageService->dataAllWithPaginate();
-        return view('admin.product-image.index',['models'=>$models]);
+        $models=$this->productImageService->dataAllWithPaginate($productId);
+        return view('admin.product-image.index',['models'=>$models,'productId'=>$productId]);
     }
-    public function create()
+    public function create($productId)
     {
-        return view('admin.product-image.form');
+        return view('admin.product-image.form',compact('productId'));
     }
     public function store(ProductImageRequest $request)
     {
         $this->productImageService->store($request);
-        return redirect()->route('admin.product-image.index');
+        return redirect()->route('admin.product-image.index',$request->product_id);
     }
     public function edit(ProductImage $productImage)
     {
-
-        return view('admin.product-image.form',['model'=>$productImage]);
+        return view('admin.product-image.form',['model'=>$productImage,'productId'=>$productImage->product_id]);
     }
     public function update(ProductImageRequest $productImageRequest, ProductImage $productImage)
     {

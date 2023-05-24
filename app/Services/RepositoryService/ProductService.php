@@ -43,6 +43,9 @@ class ProductService
 
     public function delete($model)
     {
+        foreach ($model->images as $productImage){
+            $this->fileUploadService->removeFile($productImage->image);
+        }
         self::ClearCached();
         $this->fileUploadService->removeFile($model->image);
         return $this->productRepository->delete($model);

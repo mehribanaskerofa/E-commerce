@@ -14,16 +14,15 @@ class ProductImageService
                                 protected FileUploadService $fileUploadService)
     {
     }
-    public function dataAllWithPaginate()
+    public function dataAllWithPaginate($productId)
     {
-        return $this->productImageRepository->paginate(10);
+        return $this->productImageRepository->query()->where('product_id',$productId)->get();
     }
 
     public function store($request)
     {
         $data=$request->all();
         $data['image']=$this->fileUploadService->uploadFile($request->image,'product_images');
-        $data['active']=$data['active'] ?? false;
 
         $model= $this->productImageRepository->save($data,new ProductImage());
         self::ClearCached();
@@ -32,10 +31,7 @@ class ProductImageService
     public function update($request,$model)
     {
         $data=$request->all();
-        if($request->has('image')){
-            $data['image']=$this->fileUploadService->replaceFile($request->image,$model->image,'product_images');
-        }
-        $data['active']=$data['active'] ?? false;
+        $data['image']=$this->fileUploadService->replaceFile($request->image,$model->image,'product_images');
 
         $model=$this->productImageRepository->save($data,$model);
         self::ClearCached();
@@ -45,6 +41,7 @@ class ProductImageService
     public function delete($model)
     {
         self::ClearCached();
+        $this->fileUploadService->removeFile($model->image);
         return $this->productImageRepository->delete($model);
     }
 

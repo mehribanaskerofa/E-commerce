@@ -2,9 +2,9 @@
 @section('content')
 
     {{
-    $routeName='admin.product'
+    $routeName='admin.product-image'
     }}
-    <a class="btn btn-primary my-3" href="{{route($routeName.'.create')}}">Add</a>
+    <a class="btn btn-primary my-3" href="{{route($routeName.'.create',$productId)}}">Add</a>
     <br>
     <div class="card">
         <div class="card-body">
@@ -12,10 +12,7 @@
                 <thead>
                 <tr>
                     <th style="width: 10px">#</th>
-                    <th>Title</th>
-                    <th>Slug</th>
-                    <th>Category</th>
-                    <th>Images</th>
+                    <th>Image</th>
                     <th style="width: 50px">Edit</th>
                     <th style="width: 50px">Delete</th>
                 </tr>
@@ -24,12 +21,7 @@
                 @foreach($models  as $model)
                     <tr>
                         <td>{{$model->id}}</td>
-                        <td>{{$model->title}}</td>
-                        <td>{{$model->slug}}</td>
-                        <td>{{$model->category->title}}</td>
-                        <td>
-                            <a href="{{route('admin.product-image.index',$model->id)}}" class="btn btn-warning">Images</a>
-                        </td>
+                        <td> <img src="{{asset('storage/'.$model->image)}}" width="100px"></td>
                         <td>
                             <a href="{{route($routeName.'.edit',$model->id)}}" class="btn btn-warning">Edit</a>
                         </td>
