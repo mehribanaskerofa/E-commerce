@@ -46,6 +46,7 @@ class CategoryService
     public function delete($model)
     {
         self::ClearCached();
+        $this->fileUploadService->removeFile($model->image);
         return $this->categoryRepository->delete($model);
     }
 

@@ -13,6 +13,7 @@ use App\Services\RepositoryService\ProductService;
 
 class ProductController extends Controller
 {
+
     public function __construct(protected ProductService $productService)
     {
 
@@ -23,20 +24,19 @@ class ProductController extends Controller
         $models=$this->productService->dataAllWithPaginate();
         return view('admin.product.index',['models'=>$models]);
     }
-    public function create()
+    public function create(CategoryService $categoryService)
     {
-        $products=$this->productService->CachedCategories();
-        return view('admin.product.form',['products'=>$products]);
+        $categories=$categoryService->CachedCategories();
+        return view('admin.product.form',['categories'=>$categories]);
     }
     public function store(ProductRequest $request)
     {
         $this->productService->store($request);
-        return redirect()->route('admin.category.index');
+        return redirect()->route('admin.product.index');
     }
-    public function edit(Product $product)
+    public function edit(Product $product,CategoryService $categoryService)
     {
-
-        $categories=$this->productService->CachedCategories();
+        $categories=$categoryService->CachedCategories();
         return view('admin.product.form',['model'=>$product,'categories'=>$categories]);
     }
     public function update(ProductRequest $productRequest, Product $product)

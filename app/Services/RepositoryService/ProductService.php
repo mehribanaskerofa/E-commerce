@@ -2,14 +2,10 @@
 
 namespace App\Services\RepositoryService;
 
-use App\Http\Requests\CategoryRequest;
-use App\Models\Category;
 use App\Models\Product;
-use App\Repositories\CategoryRepository;
 use App\Repositories\ProductRepository;
 use App\Services\FileUploadService;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Str;
 
 class ProductService
 {
@@ -19,7 +15,7 @@ class ProductService
     }
     public function dataAllWithPaginate()
     {
-        return $this->productRepository->paginate(10);
+        return $this->productRepository->paginate(10,['category.translations']);
     }
 
     public function store($request)
@@ -48,10 +44,11 @@ class ProductService
     public function delete($model)
     {
         self::ClearCached();
+        $this->fileUploadService->removeFile($model->image);
         return $this->productRepository->delete($model);
     }
 
-    public function CachedCategories()
+    public function CachedProducts()
     {
         return Cache::rememberForever('products',
             function (){
@@ -61,6 +58,6 @@ class ProductService
 
     public static function ClearCached()
     {
-        Cache::forget('categories');
+        Cache::forget('products');
     }
 }
