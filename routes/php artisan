@@ -19,3 +19,6 @@ migrate:fresh --seed
 php artisan storage:link - sekil yuklemek ucun
 
 php -S localhost:8000 -t public/  - php artisan problem
+
+image sort---------
+jquery-sortable
