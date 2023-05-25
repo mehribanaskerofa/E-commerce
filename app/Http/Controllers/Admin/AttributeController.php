@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\AttributeRequest;
+use App\Models\Attribute;
+use App\Services\RepositoryService\AttributeService;
+
+class AttributeController extends Controller
+{
+
+    public function __construct(protected AttributeService $attributeService)
+    {
+
+    }
+
+    public function index()
+    {
+        $models=$this->attributeService->dataAllWithPaginate();
+        return view('admin.attribute.index',['models'=>$models]);
+    }
+    public function create()
+    {
+        return view('admin.attribute.form');
+    }
+    public function store(AttributeRequest $request)
+    {
+        $this->attributeService->store($request);
+        return redirect()->route('admin.attribute.index');
+    }
+    public function edit(Attribute $attribute)
+    {
+        return view('admin.attribute.form',['model'=>$attribute]);
+    }
+    public function update(AttributeRequest $attributeRequest, Attribute $attribute)
+    {
+        $this->attributeService->update($attributeRequest,$attribute);
+        return redirect()->back();
+    }
+    public function destroy(Attribute $attribute)
+    {
+        $this->attributeService->delete($attribute);
+        return redirect()->back();
+    }
+}

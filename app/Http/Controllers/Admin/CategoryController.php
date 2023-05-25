@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Services\FileUploadService;
+use App\Services\RepositoryService\AttributeService;
 use App\Services\RepositoryService\CategoryService;
 
 class CategoryController extends Controller
@@ -20,21 +21,22 @@ class CategoryController extends Controller
         $models=$this->categoryService->dataAllWithPaginate();
         return view('admin.category.index',['models'=>$models]);
     }
-    public function create()
+    public function create(AttributeService $attributeService)
     {
         $categories=$this->categoryService->CachedCategories();
-        return view('admin.category.form',['categories'=>$categories]);
+        $attributes=$attributeService->CachedAttributes();
+        return view('admin.category.form',['categories'=>$categories,'attributes'=>$attributes]);
     }
     public function store(CategoryRequest $request)
     {
         $this->categoryService->store($request);
         return redirect()->route('admin.category.index');
     }
-    public function edit(Category $category)
+    public function edit(Category $category,AttributeService $attributeService)
     {
-
+        $attributes=$attributeService->CachedAttributes();
         $categories=$this->categoryService->CachedCategories();
-        return view('admin.category.form',['model'=>$category,'categories'=>$categories]);
+        return view('admin.category.form',['model'=>$category,'categories'=>$categories,'attributes'=>$attributes]);
     }
     public function update(CategoryRequest $categoryRequest, Category $category)
     {
