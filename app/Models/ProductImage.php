@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Iksaku\Laravel\MassUpdate\MassUpdatable;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductImage extends Model
 {
+    use MassUpdatable;
 
     protected $table='product_images';
     protected $guarded=[];

@@ -49,13 +49,13 @@
             $( "#sortable" ).sortable();
         } );
 
-        $( "#sortable" ).on('stopsort',function (event,ui){
+        $( "#sortable" ).on('sortstop',function (event,ui){
             $.ajax({
-                method:"post",
-                url:{{route('product-image-sort')}},
+                method: "POST",
+                url : "{{ route("admin.product-image-sort") }}" ,
                 data: {
                     sortList:$( "#sortable").sortable('serialize'),
-                    _token:$("meta[name=csrf]").attr('content')
+                    _token: $('meta[name=csrf]').attr('content')
                 }
             });
             // $( "#sortable" ).sortable('serialize')
