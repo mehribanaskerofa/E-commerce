@@ -16,7 +16,7 @@ class ProductImageService
     }
     public function dataAllWithPaginate($productId)
     {
-        return $this->productImageRepository->query()->where('product_id',$productId)->paginate(5);
+        return $this->productImageRepository->query()->where('product_id',$productId)->orderBy('sort_order','asc')->paginate(5);
     }
 
     public function store($request)
@@ -45,6 +45,22 @@ class ProductImageService
         return $this->productImageRepository->delete($model);
     }
 
+    public function sortElements($sortList)
+    {
+        $orderData=[];
+        foreach ($sortList['order'] as $sort_order=> $imageId){
+            $orderData[]=[
+              'id'=>$imageId,
+                'sort_order'=>$sort_order
+            ];
+//            $this->query()->where('id',$imageId)->update(['sort_order'=>$sort_order]); // diger yontem
+        }
+        ProductImage::massUpdate(
+            values:$orderData,
+            uniqueBy:"id"
+        );
+
+    }
     public function CachedCategories()
     {
 //        return Cache::rememberForever('sil',

@@ -18,6 +18,7 @@
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     @yield('css')
+    <meta name="csrf" content="{{csrf_token()}}">
 </head>
 
 <body class="hold-transition sidebar-mini">

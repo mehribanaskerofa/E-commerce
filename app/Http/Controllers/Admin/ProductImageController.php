@@ -42,4 +42,10 @@ class ProductImageController extends Controller
         $this->productImageService->delete($productImage);
         return redirect()->back();
     }
+
+    public function sort()
+    {
+        parse_str(request()->sortList,$sortList);
+        $this->productImageService->sortElements($sortList);
+    }
 }
