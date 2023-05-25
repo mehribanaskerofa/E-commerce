@@ -21,4 +21,5 @@ php artisan storage:link - sekil yuklemek ucun
 php -S localhost:8000 -t public/  - php artisan problem
 
 image sort---------
-jquery-sortable
+1)jquery-sortable - https://api.jqueryui.com/sortable/
+2)https://github.com/iksaku/laravel-mass-update
