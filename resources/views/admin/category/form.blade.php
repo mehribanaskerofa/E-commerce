@@ -100,6 +100,21 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Attributes</label>
+                    <select id="select2" name="attributes[]" class="form-control">
+                        @foreach($attributes as $attribute)
+                            <option value="{{$category->id}}"
+                                @selected(old('parent_id',(isset($model) ? $model->parent_id : null))==$category->id)
+                            >{{$category->title}}</option>
+                        @endforeach
+
+                    </select>
+                    @error('$attributes')
+                    <span class="text-danger">{{$message}}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
                     <label>Active</label>
                     <input type="checkbox" name="active" value="1" @checked(old('active',$model->active ?? ''))>
                     @error('active')
@@ -127,4 +142,12 @@
         </div>
     </div>
 @endsection
-
+@section('js')
+    <script src="{{asset('_assets/js/select2.full.js')}}"></script>
+    <script>
+        $('#select2').select2();
+    </script>
+@endsection
+@selected('css')
+<link rel="stylesheet" href="{{asset('_assets/css/select2.css')}}">
+@endsection

@@ -35,7 +35,14 @@ menu
         </p>
     </a>
 </li>
-
+<li class="nav-item">
+    <a href="{{route('admin.attribute.index')}}" class="nav-link">
+        <i class="nav-icon fas fa-th"></i>
+        <p>
+            Attribute
+        </p>
+    </a>
+</li>
 <li class="nav-item">
     <a href="{{route('admin.logout')}}" class="nav-link">
         <i class="nav-icon fas fa-th"></i>

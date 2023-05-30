@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProductImageController;
@@ -37,5 +38,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function () {
     Route::get('product-image/{productId}',[ProductImageController::class,'index'])->name('product-image.index');
     Route::get('product-image/create/{productId}',[ProductImageController::class,'create'])->name('product-image.create');
     Route::post('sort-product-image',[ProductImageController::class,'sort'])->name('product-image-sort');
+
+    Route::resource('attribute',AttributeController::class)->except(['show']);
 
 });
