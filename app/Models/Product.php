@@ -24,4 +24,8 @@ class Product extends Model implements TranslatableContract
     {
         return $this->hasMany(ProductImage::class,'product_id','id');
     }
+    public function attributeValues()
+    {
+        return $this->belongsToMany(AttributeValue::class,AttributeValueProduct::class,'product_id','attribute_value_id');
+    }
 }

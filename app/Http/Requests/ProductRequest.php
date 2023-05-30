@@ -15,6 +15,8 @@ class ProductRequest extends FormRequest
             'category_id'=>'required|exists:categories,id',
             'price'=>'required|numeric|min:0',
             'quantity'=>'nullable|numeric|min:0',
+            'attributes'=>'array',
+            'attributes.*.*'=>'exists:attribute_values,id'
 
         ];
         return $this->mapLanguageValidations($data);

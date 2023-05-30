@@ -103,15 +103,15 @@
                     <label>Attributes</label>
                     <select id="select2" name="attributes[]" class="form-control">
                         @foreach($attributes as $attribute)
-                            <option value="{{$category->id}}"
-                                @selected(old('parent_id',(isset($model) ? $model->parent_id : null))==$category->id)
-                            >{{$category->title}}</option>
+                            <option value="{{$attribute->id}}"
+                             @isset($model)   @selected(in_array($attribute->id,(old('attributes[]',$model->attributes->pluck('id')->toArray())))) @endisset
+                            >{{$attribute->title}}</option>
                         @endforeach
 
                     </select>
-                    @error('$attributes')
-                    <span class="text-danger">{{$message}}</span>
-                    @enderror
+{{--                    @error('$attributes')--}}
+{{--                    <span class="text-danger">{{$message}}</span>--}}
+{{--                    @enderror--}}
                 </div>
 
                 <div class="form-group">
@@ -142,12 +142,6 @@
         </div>
     </div>
 @endsection
-@section('js')
-    <script src="{{asset('_assets/js/select2.full.js')}}"></script>
-    <script>
-        $('#select2').select2();
-    </script>
-@endsection
-@selected('css')
-<link rel="stylesheet" href="{{asset('_assets/css/select2.css')}}">
-@endsection
+@include('admin.includes.select2')
+
+

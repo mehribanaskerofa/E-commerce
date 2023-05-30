@@ -21,16 +21,27 @@ class ProductService
     public function store($request)
     {
         $data=$request->all();
+
+        $attributes=collect($data['attributes'] ?? [])->flatten()->toArray();
+        unset($data['attributes']);
+
         $data['image']=$this->fileUploadService->uploadFile($request->image,'product_images');
         $data['active']=$data['active'] ?? false;
 
         $model= $this->productRepository->save($data,new Product());
+        $model->attributeValues->sync($attributes);
+
         self::ClearCached();
         return $model;
     }
     public function update($request,$model)
     {
         $data=$request->all();
+
+        $attributes=collect($data['attributes'] ?? [])->flatten()->toArray();
+        unset($data['attributes']);
+        $model->attributeValues->sync($attributes);
+
         if($request->has('image')){
             $data['image']=$this->fileUploadService->replaceFile($request->image,$model->image,'product_images');
         }
