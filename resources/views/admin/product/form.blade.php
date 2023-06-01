@@ -177,7 +177,7 @@
 
                 <div class="form-group">
                     <label>Category</label>
-                    <select name="category_id" class="form-control">
+                    <select name="category_id" class="form-control product-category">
                         @foreach($categories as $category)
                             <option value="{{$category->id}}"
                             @selected(old('category_id',(isset($model) ? $model->category_id : null))==$category->id)
@@ -188,6 +188,9 @@
                     @error('parent_id')
                     <span class="text-danger">{{$message}}</span>
                     @enderror
+                </div>
+                <div id="attributes-area">
+
                 </div>
 
                 <div class="form-group">
@@ -219,3 +222,27 @@
     </div>
 @endsection
 
+@push('js')
+    <script>
+        $(document).ready(function (){
+            getCategoryAttributes($('.product-category').trigger('change').val());
+{{--            const $product_id={{@isset($model) ? $model->id : ''}};--}}
+            $('.product-category').on('change',function (){
+                getCategoryAttributes($(this).val());
+            });
+
+            function getCategoryAttributes($category_id){
+                $.ajax({
+                    method: 'get',
+                    url: "{{route('admin.category-attributes',['categoryId','productId'])}}"
+                        .replace('categoryId',$category_id)
+                        .replace('productId',$('.product-category').val()),
+                    success(response) {
+                        $('#attributes-area').html(response);
+                        $('#select2').select2();
+                    }
+                });
+            }
+        });
+    </script>
+@endpush

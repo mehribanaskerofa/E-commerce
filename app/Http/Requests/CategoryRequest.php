@@ -12,7 +12,10 @@ class CategoryRequest extends FormRequest
         $data= [
             'image'=>[Rule::requiredIf(request()->method==self::METHOD_POST),'required','image','mimes:jpg,jpeg,png'],
             'active'=>'nullable|boolean',
-            'parent_id'=>'nullable|exists:categories,id'
+            'parent_id'=>'nullable|exists:categories,id',
+            'attributes'=>'nullable|array',
+            'attributes.*'=>'nullable|exists:attributes,id'
+
         ];
         return $this->mapLanguageValidations($data);
     }

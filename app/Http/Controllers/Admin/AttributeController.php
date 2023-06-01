@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AttributeRequest;
 use App\Models\Attribute;
+use App\Models\AttributeValueProduct;
+use App\Models\Category;
 use App\Services\RepositoryService\AttributeService;
 
 class AttributeController extends Controller
@@ -42,5 +44,16 @@ class AttributeController extends Controller
     {
         $this->attributeService->delete($attribute);
         return redirect()->back();
+    }
+
+    public function getAttributesByCategory(Category $category, $productId=null)
+    {
+        $selectedAttributeValues=[];
+        if($productId){
+            $selectedAttributeValues=AttributeValueProduct::where('product_id',$productId)->pluck('attribute_value_id')->toArray();
+        }
+
+        $attributes=$category->load(['attributes.translations','attributes.values.translations'])->attributes;
+        return view('admin.attribute.product-attributes',compact('attributes','selectedAttributeValues'))->render();
     }
 }

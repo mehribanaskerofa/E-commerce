@@ -3,14 +3,15 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class AttributeRequest extends FormRequest
+class AttributeValueRequest extends FormRequest
 {
     public function rules(): array
     {
         $data= [
-            'active'=>'nullable|boolean'
+            'active'=>'nullable|boolean',
+            'attribute_id'=>'required|exists:attributes,id',
+            'value'=>'required|string|min:1'
         ];
         return $this->mapLanguageValidations($data);
     }

@@ -3,6 +3,7 @@
 namespace App\Services\RepositoryService;
 
 use App\Http\Requests\CategoryRequest;
+use App\Models\AttributeCategory;
 use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use App\Services\FileUploadService;
@@ -17,22 +18,43 @@ class CategoryService
     }
     public function dataAllWithPaginate()
     {
-        return $this->categoryRepository->paginate(10,['parent.translations']);
+        return $this->categoryRepository->paginate(10,['parent.translations']);//,'attributes:id'
     }
 
     public function store($request)
     {
         $data=$request->all();
+
         $data['image']=$this->fileUploadService->uploadFile($request->image,'categories');
         $data['active']=$data['active'] ?? false;
+        $attributes=$data['attributes'];
+        unset($data['attributes']);
 
         $model= $this->categoryRepository->save($data,new Category());
+        $model->attributes()->attach($attributes);//yoxla
+
         self::ClearCached();
         return $model;
     }
     public function update($request,$model)
     {
         $data=$request->all();
+
+//        $attributes=[];
+//        if(count($data['attributes'])>0){
+//            foreach ($data['attributes'] as $attribute){
+//                $attributes[]=[
+//                    'category_id'=>$model->id,
+//                    'attribute_id'=>$attribute->id
+//                ];
+//            }
+//            AttributeCategory::where('category_id',$model->id)->delete();
+//            AttributeCategory::insert($attributes);
+//        }
+        $model->attributes()->sync($data['attributes'] ?? []);//yoxla
+        unset($data['attributes']);
+
+
         if($request->has('image')){
             $data['image']=$this->fileUploadService->replaceFile($request->image,$model->image,'categories');
         }

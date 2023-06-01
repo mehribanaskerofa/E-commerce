@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
           integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    @yield('css')
+    @stack('css')
     <meta name="csrf" content="{{csrf_token()}}">
 </head>
 
@@ -88,6 +88,6 @@
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{--<script src="{{asset('_assets/js/pages/dashboard3.js')}}"></script>--}}
-@yield('js')
+@stack('js')
 </body>
 </html>
