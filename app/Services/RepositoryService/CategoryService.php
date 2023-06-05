@@ -27,7 +27,7 @@ class CategoryService
 
         $data['image']=$this->fileUploadService->uploadFile($request->image,'categories');
         $data['active']=$data['active'] ?? false;
-        $attributes=$data['attributes'];
+        $attributes=$data['attributes'] ?? [];
         unset($data['attributes']);
 
         $model= $this->categoryRepository->save($data,new Category());
