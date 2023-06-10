@@ -1,3 +1,7 @@
+composer -> bin ->php->php->
+projecti cmdinin icinde -> composer install(vendor gelir)
+
+
 php artisan serve
 
 php artisan make:(

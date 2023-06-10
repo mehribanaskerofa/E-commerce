@@ -12,6 +12,7 @@ class Product extends Model implements TranslatableContract
 
     protected $table='products';
     protected $guarded=[];
+    protected $with=['types'];
     public $translationModel=ProductTranslation::class;
     public $translatedAttributes = ['title','slug','description','specification'];
 
@@ -26,6 +27,11 @@ class Product extends Model implements TranslatableContract
     }
     public function attributeValues()
     {
-        return $this->belongsToMany(AttributeValue::class,AttributeValueProduct::class,'product_id','attribute_value_id');
+        return $this->belongsToMany(AttributeValue::class,AttributeValueProduct::class,'attribute_value_id','product_id');
+    }
+
+    public function types()
+    {
+        return $this->hasMany(ProductType::class,'product_id','id');
     }
 }
