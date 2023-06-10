@@ -5,9 +5,9 @@
 <select name="attributes[{{$attribute->id}}][]" class="form-control select2 product-category" multiple>
     @foreach($attribute->values as $value)
            <option value="{{$value->id}}"
-               @selected(in_array($value->id,$selectedAttributeValues))
-           >
-               {{$value->title}}</option>
+               @selected(in_array($value->id,$selectedAttributeValues))>
+               {{$value->title}}
+           </option>
     @endforeach
 
 </select>

@@ -10,13 +10,15 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         $data= [
-            'image'=>[Rule::requiredIf(request()->method==self::METHOD_POST),'required','image','mimes:jpg,jpeg,png'],
+            'image'=>[Rule::requiredIf(request()->method==self::METHOD_POST),'image','mimes:jpg,jpeg,png'],
             'active'=>'nullable|boolean',
             'category_id'=>'required|exists:categories,id',
             'price'=>'required|numeric|min:0',
             'quantity'=>'nullable|numeric|min:0',
+            'types'=>'array',
             'attributes'=>'array',
-            'attributes.*.*'=>'exists:attribute_values,id'
+            'attributes.*.*'=>'exists:attribute_values,id',
+
 
         ];
         return $this->mapLanguageValidations($data);
