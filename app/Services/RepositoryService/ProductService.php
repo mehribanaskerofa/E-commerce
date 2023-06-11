@@ -15,7 +15,7 @@ class ProductService
     }
     public function dataAllWithPaginate()
     {
-        return $this->productRepository->paginate(10,['category.translations']);
+        return $this->productRepository->paginate(9,['category.translations','attributeValues']);
     }
 
     public function store($request)
@@ -79,6 +79,27 @@ class ProductService
         self::ClearCached();
         $this->fileUploadService->removeFile($model->image);
         return $this->productRepository->delete($model);
+    }
+
+    public function getProductsByType($type,$limit=10)
+    {
+        return $this->productRepository
+            ->query()
+            ->with('translations','category.translations','attributeValues.translations')
+            ->whereHas('types',function ($q) use ($type){
+                return $q->where('type',$type);
+            })
+            ->inRandomOrder()
+            ->limit($limit)
+            ->get();
+    }
+
+    public function getProductsByCategoryId($categoryIds)
+    {
+        return $this->productRepository->query()
+            ->whereIn('category_id',$categoryIds)
+            ->with(['translations','category.translations','attributeValues'])
+            ->paginate(10);
     }
 
     public function CachedProducts()

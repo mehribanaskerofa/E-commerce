@@ -29,3 +29,5 @@ Route::get('/shop-cart',[HomeController::class,'shopCart'])->name('shop-cart');
 Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
 
+Route::get('/category/{slug}',[HomeController::class,'getByCategory'])->name('category.slug');
+Route::get('/product/{slug}',[HomeController::class,'getByProduct'])->name('product-detail');

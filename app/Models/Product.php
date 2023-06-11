@@ -12,7 +12,7 @@ class Product extends Model implements TranslatableContract
 
     protected $table='products';
     protected $guarded=[];
-    protected $with=['types'];
+//    protected $with=['types'];
     public $translationModel=ProductTranslation::class;
     public $translatedAttributes = ['title','slug','description','specification'];
 

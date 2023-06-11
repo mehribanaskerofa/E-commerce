@@ -65,6 +65,17 @@ class CategoryService
         return $model;
     }
 
+    public function findCategory($slug)
+    {
+//        $this->categoryRepository->getModelClass()->withCount(['products])
+        return Category::with(['translations','products','attributes.translations','attributes.values.translations'])->whereTranslation('slug',$slug,app()->getLocale())->first();
+//            Category::whereTranslation('slug',$slug,app()->getLocale());
+    }
+
+    public function findChildIds($category_id)
+    {
+        return Category::select('id')->where('parent_id',$category_id)->pluck('id')->toArray();
+    }
     public function delete($model)
     {
         self::ClearCached();
