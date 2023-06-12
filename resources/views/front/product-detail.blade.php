@@ -25,6 +25,9 @@
                 <div class="col-lg-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__left product__thumb nice-scroll">
+                            <a class="pt" href="#product_image">
+                                <img src="{{asset('storage/'.$product->image)}}" alt="">
+                            </a>
                             @foreach($product->images as $index=>$image)
                                 @if($product->discount_price && $product->discount_type==\App\Enums\DiscountTypes::PERCENT)
                                     <div class="label bg-danger">{{$product->discount_value}}%</div>
@@ -39,6 +42,7 @@
                                 @if($product->discount_price && $product->discount_type==\App\Enums\DiscountTypes::PERCENT)
                                     <div class="label bg-danger">{{$product->discount_value}}%</div>
                                 @endif
+                                <img data-hash="product-image" class="product__big__img" src="{{asset('storage/'.$product->image)}}" alt="">
                                 @foreach($product->images as $index=>$image)
                                 <img data-hash="product-{{$index}}" class="product__big__img" src="{{asset('storage/'.$image)}}" alt="">
                                 @endforeach
@@ -87,6 +91,7 @@
                                         </label>
                                     </div>
                                 </li>
+                                @if($attributes)
                                @foreach($attributes as $attribute=>$values)
                                 <li>
                                     <span>Available {{$attribute}}:</span>
@@ -104,6 +109,7 @@
                                     </div>
                                 </li>
                                 @endforeach
+                                @endif
 
 
 

@@ -22,8 +22,10 @@ class Attribute extends Component
      */
     public function render(): View|Closure|string
     {
-        $attributes=$this->attributeService->dataAllWithoutPaginate();
+        $attributesAll=$this->attributeService->dataAllWithoutPaginate();
         $attributeValues=array_unique($this->products->pluck('attributeValues.*.id')->flatten()->toArray());
+        $attributes=$attributesAll->whereIn('id',$attributeValues);
+        dd($attributes);
         return view('components.front.attribute',compact('attributes'));
     }
 }

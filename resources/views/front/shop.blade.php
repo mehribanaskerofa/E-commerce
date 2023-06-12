@@ -139,7 +139,7 @@
 {{--                            </div>--}}
 {{--                        </div>--}}
 
-                        <x-front.attribute :product="$products"/>
+                        <x-attribute :products="$products"/>
 
                     </div>
                 </div>

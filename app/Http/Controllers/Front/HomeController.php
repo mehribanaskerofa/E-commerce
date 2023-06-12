@@ -46,18 +46,17 @@ class HomeController extends Controller
 
     public function getByProduct($slug)
     {
-        dd($product=Product::with(['translations',
-            'category.translations',
-            'images',
-            'attributeValues.translations',
-            'attributeValues.attribute.translations'])->get()->toArray());
         $product=Product::with(['translations',
             'category.translations',
             'images',
             'attributeValues.translations',
             'attributeValues.attribute.translations'])
-            ->whereTranslation('slug',$slug,app()->getLocale())->get();
-        $attributes=$product->attributeValues->group('attribute.title');
+            ->whereTranslation('slug',$slug,app()->getLocale())->first();//get
+//        dd($product);
+//        $attributes=$product->attributeValues->group('attribute.title');
+        $attributes=$product->attribute_Values?->group('attribute.title');
+
+//        dd($attributes);
         return view('front.product-detail',compact('product','attributes'));
     }
     public function shopCart()
