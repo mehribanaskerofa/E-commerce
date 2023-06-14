@@ -25,7 +25,7 @@ class Attribute extends Component
         $attributesAll=$this->attributeService->dataAllWithoutPaginate();
         $attributeValues=array_unique($this->products->pluck('attributeValues.*.id')->flatten()->toArray());
         $attributes=$attributesAll->whereIn('id',$attributeValues);
-        dd($attributes);
-        return view('components.front.attribute',compact('attributes'));
+//        dd($attributes->toArray());
+        return view('components.front.attribute',['Attributes'=>$attributes]);
     }
 }

@@ -12,7 +12,7 @@ class Category extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(protected CategoryService $categoryService,protected $category=[])
+    public function __construct(protected $category=[],protected CategoryService $categoryService)
     {
         //
     }

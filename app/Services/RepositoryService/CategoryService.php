@@ -68,7 +68,7 @@ class CategoryService
     public function findCategory($slug)
     {
 //        $this->categoryRepository->getModelClass()->withCount(['products])
-        return Category::with(['translations','products','attributes.translations','attributes.values.translations'])->whereTranslation('slug',$slug,app()->getLocale())->first();
+        return Category::with(['translations','products.translations','attributes.translations','attributes.values.translations'])->whereTranslation('slug',$slug,app()->getLocale())->first();
 //            Category::whereTranslation('slug',$slug,app()->getLocale());
     }
 

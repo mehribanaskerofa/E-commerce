@@ -53,7 +53,7 @@
                                         @enderror
                                     </div>
                                     <div class="form-group col-6">
-                                        <label>description {{$lang}}</label>
+                                        <label>Description {{$lang}}</label>
                                         <input type="text" placeholder="Description {{$lang}}" name="{{$lang}}[description]"
                                                value="{{old("$lang.description",isset($model) ? ($model->translateOrDefault($lang)->description ?? '') : '')}}"
                                                class="form-control">

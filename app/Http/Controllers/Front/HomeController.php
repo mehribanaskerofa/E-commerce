@@ -29,7 +29,6 @@ class HomeController extends Controller
         if(!$category){
             abort(404);
         }
-
         $categoryIds=[$category->id];
         if($category->parent_id==null){
             $childIds=$categoryService->findChildIds($category->id);
@@ -47,17 +46,16 @@ class HomeController extends Controller
     public function getByProduct($slug)
     {
         $product=Product::with(['translations',
+            'reviews',
             'category.translations',
             'images',
             'attributeValues.translations',
             'attributeValues.attribute.translations'])
             ->whereTranslation('slug',$slug,app()->getLocale())->first();//get
-//        dd($product);
-//        $attributes=$product->attributeValues->group('attribute.title');
         $attributes=$product->attribute_Values?->group('attribute.title');
+        $avg_rating=round($product->reviews->pluck('rating')->avg(),0);
 
-//        dd($attributes);
-        return view('front.product-detail',compact('product','attributes'));
+        return view('front.product-detail',compact('product','attributes','avg_rating'));
     }
     public function shopCart()
     {

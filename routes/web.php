@@ -31,3 +31,5 @@ Route::get('/contact',[HomeController::class,'contact'])->name('contact');
 
 Route::get('/category/{slug}',[HomeController::class,'getByCategory'])->name('category.slug');
 Route::get('/product/{slug}',[HomeController::class,'getByProduct'])->name('product-detail');
+
+Route::post('/review',[ReviewController::class,'review'])->name('product-review');
