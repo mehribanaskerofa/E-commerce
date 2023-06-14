@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Attribute;
+use App\Models\Category;
 use App\Models\Product;
 use App\Services\RepositoryService\AttributeService;
 use App\Services\RepositoryService\CategoryService;
@@ -11,9 +12,12 @@ use App\Services\RepositoryService\ProductService;
 
 class HomeController extends Controller
 {
-    public function home()
+    public function home(ProductService $productService,CategoryService $categoryService)
     {
-        return view('front.home');
+
+        $products=$productService->dataAllWithPaginate();
+        $categories=$categoryService->dataAllWithPaginate()->skip(1)->take(4);
+        return view('front.home',compact('products','categories'));
     }
     public function shop(ProductService $productService, AttributeService $attributeService)
     {
@@ -68,5 +72,19 @@ class HomeController extends Controller
     public function contact()
     {
         return view('front.contact');
+    }
+
+    public function getProductsByCategory($slug)
+    {
+        if($slug!='All') {
+            $products = Product::whereHas('category', function ($query) use ($slug) {
+                $query->whereTranslation('slug', $slug, app()->getLocale());
+            })->paginate(8);
+        }
+        else{
+            $products=Product::paginate(8);
+        }
+//        dd($products);
+        return view('components.products',compact('products'))->render();
     }
 }

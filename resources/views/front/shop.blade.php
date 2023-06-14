@@ -147,7 +147,7 @@
                     <div class="row">
 
                         @foreach($products as $product)
-                            <x-front.product :product="$product" />
+                            <x-product :product="$product" />
                         @endforeach
                         <div class="col-lg-12 text-center">
                                 {{$products->links("pagination::bootstrap-4")}}

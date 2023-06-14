@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,3 +34,5 @@ Route::get('/category/{slug}',[HomeController::class,'getByCategory'])->name('ca
 Route::get('/product/{slug}',[HomeController::class,'getByProduct'])->name('product-detail');
 
 Route::post('/review',[ReviewController::class,'review'])->name('product-review');
+
+Route::get('/category-products/{slug}',[HomeController::class,'getProductsByCategory'])->name('get-products-category-slug');

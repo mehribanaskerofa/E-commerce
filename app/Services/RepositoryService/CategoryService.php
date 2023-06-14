@@ -18,7 +18,7 @@ class CategoryService
     }
     public function dataAllWithPaginate()
     {
-        return $this->categoryRepository->paginate(10,['parent.translations']);//,'attributes:id'
+        return $this->categoryRepository->paginate(10,['products.translations','parent.translations']);//,'attributes:id'
     }
 
     public function store($request)

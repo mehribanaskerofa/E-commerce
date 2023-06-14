@@ -24,6 +24,6 @@ class Category extends Component
     {
         $categories=$this->categoryService->CachedCategories();
         $category=$this->category;
-        return view('components.front.category',compact('categories','category'));
+        return view('components.category',compact('categories','category'));
     }
 }

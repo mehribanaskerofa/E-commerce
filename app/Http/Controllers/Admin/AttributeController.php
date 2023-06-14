@@ -56,6 +56,7 @@ class AttributeController extends Controller
 //        dd($selectedAttributeValues->toArray());
 //        dd($selectedAttributeValues);
         $attributes=$category->load(['attributes.translations','attributes.values.translations'])->attributes;
+//        dd($attributes);
         return view('admin.attribute.product-attributes',compact('attributes','selectedAttributeValues'))->render();
     }
 }

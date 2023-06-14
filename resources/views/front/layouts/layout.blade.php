@@ -116,8 +116,10 @@
 <script src="{{asset('assets/js/jquery.slicknav.js')}}"></script>
 <script src="{{asset('assets/js/owl.carousel.min.js')}}"></script>
 <script src="{{asset('assets/js/jquery.nicescroll.min.js')}}"></script>
-<script src="{{asset('assets/js/main.js')}}"></script>
 @stack('js')
+
+<script src="{{asset('assets/js/main.js')}}"></script>
+{{--@stack('js')--}}
 
 </body>
 

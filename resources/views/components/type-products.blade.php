@@ -7,7 +7,7 @@
             <div class="trend__item">
                 <a href="{{route('product-detail',$product->slug)}}">
                 <div class="trend__item__pic">
-                    <img src="{{asset('storage/'.$product->image)}}" alt="{{$product->title}}">
+                    <img src="{{asset('storage/'.$product->image)}}" style="width: 100px; height: 100px;object-fit: cover;" alt="{{$product->title}}">
                 </div>
                 </a>
                 <div class="trend__item__text">

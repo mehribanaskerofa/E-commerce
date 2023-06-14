@@ -3,9 +3,8 @@
     <div class="loader"></div>
 </div>
 
-{{--@include('front.includes.menu')--}}
 
-<x-front.menu/>
+<x-menu/>
 
 <!-- Search Begin -->
 <div class="search-model">
