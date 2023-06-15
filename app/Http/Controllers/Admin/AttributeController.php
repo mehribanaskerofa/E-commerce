@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AttributeRequest;
 use App\Models\Attribute;
+use App\Models\AttributeValue;
 use App\Models\AttributeValueProduct;
 use App\Models\Category;
 use App\Services\RepositoryService\AttributeService;
@@ -53,10 +54,8 @@ class AttributeController extends Controller
         if($productId){
             $selectedAttributeValues=AttributeValueProduct::where('product_id',$productId)->pluck('attribute_value_id');
         }
-//        dd($selectedAttributeValues->toArray());
-//        dd($selectedAttributeValues);
-        $attributes=$category->load(['attributes.translations','attributes.values.translations'])->attributes;
-//        dd($attributes);
+
+        $attributes=$category->load(['attributes.values'])->attributes;
         return view('admin.attribute.product-attributes',compact('attributes','selectedAttributeValues'))->render();
     }
 }
