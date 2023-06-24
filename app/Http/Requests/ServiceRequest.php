@@ -7,11 +7,6 @@ use Illuminate\Validation\Rule;
 
 class ServiceRequest extends FormRequest
 {
-    public function authorize(): bool
-    {
-        return false;
-    }
-
     public function rules(): array
     {
         $data= [

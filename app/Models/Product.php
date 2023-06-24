@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
@@ -27,7 +28,7 @@ class Product extends Model implements TranslatableContract
     }
     public function attributeValues()
     {
-        return $this->belongsToMany(AttributeValue::class,AttributeValueProduct::class,'attribute_value_id','product_id');
+        return $this->belongsToMany(AttributeValue::class,AttributeValueProduct::class,'product_id','attribute_value_id');
     }
 
     public function types()

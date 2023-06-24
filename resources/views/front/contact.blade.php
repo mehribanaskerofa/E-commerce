@@ -2,18 +2,7 @@
 
 @section('content')
     <!-- Breadcrumb Begin -->
-    <div class="breadcrumb-option">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb__links">
-                        <a href="./index.html"><i class="fa fa-home"></i> Home</a>
-                        <span>Contact</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+   <x-breadcrumb title="Contact"/>
     <!-- Breadcrumb End -->
 
     <!-- Contact Section Begin -->
@@ -41,11 +30,11 @@
                         </div>
                         <div class="contact__form">
                             <h5>SEND MESSAGE</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Name">
-                                <input type="text" placeholder="Email">
-                                <input type="text" placeholder="Website">
-                                <textarea placeholder="Message"></textarea>
+                            <form id="contact-form" action="">
+                                <input type="text" placeholder="FullName" name="fullname" >
+                                <input type="email" placeholder="Email" name="email" >
+                                <input type="text" placeholder="Subject" name="subject">
+                                <textarea placeholder="Message" name="message" ></textarea>
                                 <button type="submit" class="site-btn">Send Message</button>
                             </form>
                         </div>
@@ -65,3 +54,47 @@
     <!-- Contact Section End -->
 
 @endsection
+@push('js')
+{{--    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>--}}
+
+    <script>
+        $(document).on('submit', '#contact-form', function (e) {
+            e.preventDefault();
+            let data=[];
+            console.log($(this).serializeArray())
+            $(this).serializeArray().forEach(function (el) {
+                data[el['name']] = el['value'];
+            });
+            console.log(data);
+            $.ajax({
+                method: 'post',
+                data: {
+                    _token: $("meta[name='token']").attr('content'),
+                    ...data
+                },
+                url: "{{route('front-contact')}}",
+                beforeSend() {
+                    $('.error-data').remove();
+                },
+                success() {
+                    console.log(1);
+                },
+                error(err) {
+                    if (err.status == 422) {//422- validation
+                        Object.keys(err.responseJSON.errors).forEach(function (errKey) {
+                            $(`input[name=${errKey}]`).parent()
+                                .append(`<small class='text-danger error-data' >
+                               ${err.responseJSON.errors[errKey]}
+                                </small>`);
+                            $(`textarea[name=${errKey}]`).parent()
+                                .append(`<small class='text-danger error-data' >
+                               ${err.responseJSON.errors[errKey]}
+                                </small>`);
+                        });
+                    }
+                }
+            });
+        });
+
+    </script>
+@endpush

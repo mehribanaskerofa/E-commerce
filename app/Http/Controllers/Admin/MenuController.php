@@ -27,7 +27,6 @@ class MenuController extends Controller
     }
     public function store(MenuRequest $request)
     {
-
         $this->service->store($request);
         return redirect()->route('admin.menu.index');
     }

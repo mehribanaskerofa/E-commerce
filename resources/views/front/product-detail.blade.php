@@ -449,10 +449,12 @@
                             <div class="quantity">
                                 <span>Quantity:</span>
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="text" class="pro-qty-value" value="1">
                                 </div>
                             </div>
-                            <a href="#" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
+                            <a href="#" class="cart-btn basket-product"
+                               data-id="{{$product->id}}" data-qty="1" data-filters=""
+                            ><span class="icon_bag_alt"></span> Add to cart</a>
                             <ul>
                                 <li><a href="#"><span class="icon_heart_alt"></span></a></li>
                                 <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
@@ -475,16 +477,20 @@
                                         <li>
                                             <span>Available {{$attribute}}:</span>
                                             <div class="size__btn">
-                                                @foreach($values as $attrValue) @endforeach
+                                                @foreach($values as $attrValue)
                                                 <label for="{{$attrValue->title}}-btn">
                                                     {{--                                            class="active">--}}
-                                                    <input type="radio" id="{{$attrValue->title}}-btn">
+                                                    <input type="radio"
+                                                           id="{{$attrValue->title}}-btn"
+                                                            data-id="{{$attrValue->id}}"
+                                                           class="data-filters"
+                                                    >
                                                     {{$attrValue->title}}
-                                                    <span class="checkmark"
-                                                          style="background-color: {{$attrValue->value}}"
-                                                    ></span>
+{{--                                                    <span class="checkmark"--}}
+{{--                                                          style="background-color: {{$attrValue->value}}"--}}
+{{--                                                    ></span>--}}
                                                 </label>
-
+                                                    @endforeach
                                             </div>
                                         </li>
                                     @endforeach
@@ -763,7 +769,7 @@
     <script>
         $(document).on('submit', '#feedback', function (e) {
             e.preventDefault();
-            let data;
+            let data=[];
             $(this).serializeArray().forEach(function (el) {
                 data[el['name']] = el['value'];
             });
@@ -773,7 +779,7 @@
                     _token: $("meta[name='token']").attr('content'),
                     ...data
                 },
-                url: {{route('product-review')}},
+                url: "{{route('product-review')}}",
                 beforeSend() {
                     $('.error-data').remove();
                 },
@@ -797,5 +803,12 @@
             });
         });
 
+    </script>
+    <script>
+        $(document).on('change','.pro-qty-value',function (e){
+            e.preventDefault();
+            $('.basket-product').attr('data-qty',$(this).val());
+
+        })
     </script>
 @endpush

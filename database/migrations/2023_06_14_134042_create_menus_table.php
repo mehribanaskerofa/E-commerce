@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('url');
             $table->boolean('active')->default(true);
+            $table->unsignedBigInteger('parent_id');
             $table->timestamps();
 
+            $table->foreign('parent_id')->references('id')->on('menus')->onDelete('CASCADE');
         });
         Schema::create('menu_translations', function (Blueprint $table) {
             $table->id();

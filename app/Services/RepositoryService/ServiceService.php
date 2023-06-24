@@ -4,7 +4,6 @@ namespace App\Services\RepositoryService;
 
 use App\Models\Service;
 use App\Repositories\ServiceRepository;
-use App\Services\FileUploadService;
 use Illuminate\Support\Facades\Cache;
 
 class ServiceService
@@ -14,7 +13,7 @@ class ServiceService
     }
     public function dataAll()
     {
-        return $this->repository->paginate(['translations']);
+        return $this->repository->paginate(4,['translations']);
     }
 
     public function store($request)

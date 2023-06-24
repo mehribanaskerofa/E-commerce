@@ -13,13 +13,12 @@ class MenuService
     }
     public function dataAll()
     {
-        return $this->repository->paginate(['translations']);
+        return $this->repository->paginate(5,['translations']);
     }
 
     public function store($request)
     {
         $data=$request->all();
-
 
         $data['active']=$data['active'] ?? false;
 

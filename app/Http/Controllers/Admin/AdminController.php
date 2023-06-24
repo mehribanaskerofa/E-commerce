@@ -21,7 +21,9 @@ class AdminController extends Controller
         if(auth()->guard(Guards::ADMIN->value)->attempt(['email'=>request()->email,'password'=>request()->password,'active'=>true],request()->remember_me)){
             return redirect()->route('admin.home');
         }
-        return redirect()->back();
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
     }
 
     public function logout()

@@ -59,7 +59,21 @@
                         <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
-                        <div class="form-group col-3">
+                    <div class="form-group col-4">
+                        <label>Parent menu</label>
+                        <select class="form-control" name="parent_id">
+                            <option value="">Select parent menu</option>
+                            @foreach($menuBar as $subMenu)
+                                <option
+                                    @isset($model) @selected(old('parent_id',$menuItem->id==$model->id))@endisset
+                                    value="{{$menuItem->id}}">{{$menuItem->title}}</option>
+                            @endforeach
+                        </select>
+                        @error('parent_id')
+                        <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </div>
+                        <div class="form-group col-2">
                             <label>Active</label>
                             <input type="checkbox" name="active" value="1" @checked(old('active',$model->active ?? ''))>
                             @error('active')

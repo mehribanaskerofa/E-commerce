@@ -18,7 +18,15 @@ menu
         </p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{route('admin.menu.index')}}" class="nav-link">
+        <i class="nav-icon fas fa-th"></i>
+        <p>
+            Menu
 
+        </p>
+    </a>
+</li>
 <li class="nav-item">
     <a href="{{route('admin.category.index')}}" class="nav-link">
         <i class="nav-icon fas fa-th"></i>
@@ -40,6 +48,30 @@ menu
         <i class="nav-icon fas fa-th"></i>
         <p>
             Attribute
+        </p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{route('admin.service.index')}}" class="nav-link">
+        <i class="nav-icon fas fa-th"></i>
+        <p>
+            Service
+        </p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{route('admin.subscribe.index')}}" class="nav-link">
+        <i class="nav-icon fas fa-th"></i>
+        <p>
+            Subscribe
+        </p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{route('admin.contact.index')}}" class="nav-link">
+        <i class="nav-icon fas fa-th"></i>
+        <p>
+            Contact
         </p>
     </a>
 </li>

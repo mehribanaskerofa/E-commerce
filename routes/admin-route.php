@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SubscribeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AttributeController;
@@ -29,12 +33,30 @@ Route::group(['prefix'=>'admin','as'=>'admin.'],function () {
     productRoutes();
 
     Route::resource('attribute',AttributeController::class)->except(['show']);
+    Route::resource('menu',MenuController::class)->except(['show']);
+    Route::resource('service',ServiceController::class)->except(['show']);
+
+
+
     Route::get('attributes-by-category/{categoryId}/{productId?}',[AttributeController::class,'getAttributesByCategory'])->name('category-attributes');
 
     Route::resource('attribute-value',AttributeValueController::class)->except(['index','create','show']);
     Route::get('attribute-value/{attributeId}',[AttributeValueController::class,'index'])->name('attribute-value.index');
     Route::get('attribute-value/edit/{attribute}',[AttributeValueController::class,'edit'])->name('attribute-value.edit');
     Route::get('attribute-value/create/{attributeId}',[AttributeValueController::class,'create'])->name('attribute-value.create');
+
+
+    //subscribe
+    Route::get('subscribe',[SubscribeController::class,'index'])->name('subscribe.index');
+    Route::delete('subscribe/{id}',[SubscribeController::class,'destroy'])->name('subscribe.destroy');
+
+    //contact
+    Route::get('contact',[ContactController::class,'index'])->name('contact.index');
+    Route::delete('contact/{id}',[ContactController::class,'destroy'])->name('contact.destroy');
+
+
+
+
 });
 //Route::controller(TicketController::class)->group(function () {
 //    Route::prefix('tickets')->group(function () {

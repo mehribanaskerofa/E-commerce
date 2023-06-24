@@ -23,8 +23,9 @@ class Attribute extends Component
     public function render(): View|Closure|string
     {
         $attributesAll=$this->attributeService->dataAllWithoutPaginate();
-        $attributeValues=array_unique($this->products->pluck('attributeValues')->flatten()->toArray());
-        $attributes=$attributesAll->whereIn('id',$attributeValues);
-        return view('components.attribute',['Attributes'=>$attributes]);
+//        dd($this->products->pluck('attributeValues')->flatten()->toArray());
+//        $attributeValues=array_unique($this->products->pluck('attributeValues')->flatten()->toArray());
+//        $attributes=$attributesAll->whereIn('id',$attributeValues);
+        return view('components.attribute',['Attributes'=>$attributesAll]);
     }
 }

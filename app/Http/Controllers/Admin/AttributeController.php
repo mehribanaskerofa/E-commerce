@@ -56,6 +56,7 @@ class AttributeController extends Controller
         }
 
         $attributes=$category->load(['attributes.values'])->attributes;
-        return view('admin.attribute.product-attributes',compact('attributes','selectedAttributeValues'))->render();
+        return view('admin.attribute.product-attributes',
+            compact('attributes','selectedAttributeValues'))->render();
     }
 }

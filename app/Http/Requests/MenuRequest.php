@@ -6,17 +6,15 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class MenuRequest extends FormRequest
 {
-    public function authorize(): bool
-    {
-        return false;
-    }
+
 
     public function rules(): array
     {
         $data= [
             'url'=>'required|url',
             'active'=>'nullable|boolean',
-            'date'=>'nullable|date'
+            'date'=>'nullable|date',
+            'parent_id'=>'nullable|numeric|exists:menu,id'
         ];
         return $this->mapLanguageValidations($data);
     }

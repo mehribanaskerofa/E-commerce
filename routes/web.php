@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Front\BasketController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\ReviewController;
+use App\Http\Controllers\Front\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,15 +21,29 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-
+//admin login
 Route::get('/admin/login',[AdminController::class,'loginView'])->name('admin.login-view');
 Route::post('/admin/login',[AdminController::class,'login'])->name('admin.login');
 
-Route::get('/home',[HomeController::class,'home'])->name('home');
+//user login
+Route::get('/login',[UserController::class,'loginview'])->name('front-login-view');
+Route::post('/login',[UserController::class,'login'])->name('front-login');
+
+Route::get('/register',[UserController::class,'registerview'])->name('front-register-view');
+Route::post('/register',[UserController::class,'register'])->name('front-register');
+
+Route::get('/logout',[UserController::class,'logout'])->name('front-logout');
+
+//subscribe
+Route::post('/subscribe',[UserController::class,'subscribe'])->name('front-subscribe');
+//contact
+Route::post('/contact',[UserController::class,'contact'])->name('front-contact');
+
+Route::get('/',[HomeController::class,'home'])->name('home');
 Route::get('/shop',[HomeController::class,'shop'])->name('shop');
 Route::get('/product-detail',[HomeController::class,'productDetail'])->name('product-detail');
-Route::get('/shop-cart',[HomeController::class,'shopCart'])->name('shop-cart');
-Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout');
+Route::get('/shop-cart',[HomeController::class,'shopCart'])->name('shop-cart')->middleware('user');
+Route::get('/checkout',[HomeController::class,'checkout'])->name('checkout')->middleware('user');
 Route::get('/contact',[HomeController::class,'contact'])->name('contact');
 
 Route::get('/category/{slug}',[HomeController::class,'getByCategory'])->name('category.slug');
@@ -36,3 +52,5 @@ Route::get('/product/{slug}',[HomeController::class,'getByProduct'])->name('prod
 Route::post('/review',[ReviewController::class,'review'])->name('product-review');
 
 Route::get('/category-products/{slug}',[HomeController::class,'getProductsByCategory'])->name('get-products-category-slug');
+
+Route::get('/basket',[BasketController::class,'index'])->name('basket');

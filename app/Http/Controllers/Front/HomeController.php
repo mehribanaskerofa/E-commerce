@@ -15,7 +15,15 @@ class HomeController extends Controller
     public function home(ProductService $productService,CategoryService $categoryService)
     {
 
-        $products=$productService->dataAllWithPaginate();
+        if (request('search')) {
+            $products=Product::whereTranslationLike('title',  '%' . request('search') . '%',app()->getLocale())
+                ->orWhereTranslation('description', '%' . request('search') . '%',app()->getLocale())
+                ->orWhereTranslation('specification', '%' . request('search') . '%',app()->getLocale())
+            ->paginate(5);
+        } else {
+            $products=$productService->dataAllWithPaginate();
+        }
+
         $categories=$categoryService->dataAllWithPaginate()->skip(1)->take(4);
         return view('front.home',compact('products','categories'));
     }
@@ -53,10 +61,11 @@ class HomeController extends Controller
             'reviews',
             'category.translations',
             'images',
-            'attributeValues.translations',
+            'attributeValues',
             'attributeValues.attribute.translations'])
             ->whereTranslation('slug',$slug,app()->getLocale())->first();//get
-        $attributes=$product->attribute_Values?->group('attribute.title');
+        $attributes=$product->attributeValues->groupBy('attribute.title');
+//            ->group('Attribute.title');
         $avg_rating=round($product->reviews->pluck('rating')->avg(),0);
 
         return view('front.product-detail',compact('product','attributes','avg_rating'));
