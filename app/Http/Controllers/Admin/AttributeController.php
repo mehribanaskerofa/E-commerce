@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AttributeRequest;
 use App\Models\Attribute;
+use App\Models\AttributeValue;
 use App\Models\AttributeValueProduct;
 use App\Models\Category;
 use App\Services\RepositoryService\AttributeService;
@@ -46,14 +47,15 @@ class AttributeController extends Controller
         return redirect()->back();
     }
 
-    public function getAttributesByCategory(Category $category, $productId=null)
+    public function getAttributesByCategory($categoryId, $productId=null)
     {
+        $category=Category::where('id',$categoryId)->first();
         $selectedAttributeValues=[];
         if($productId){
-            $selectedAttributeValues=AttributeValueProduct::where('product_id',$productId)->pluck('attribute_value_id')->toArray();
+            $selectedAttributeValues=AttributeValueProduct::where('product_id',$productId)->pluck('attribute_value_id');
         }
 
-        $attributes=$category->load(['attributes.translations','attributes.values.translations'])->attributes;
+        $attributes=$category->load(['attributes.values'])->attributes;
         return view('admin.attribute.product-attributes',compact('attributes','selectedAttributeValues'))->render();
     }
 }

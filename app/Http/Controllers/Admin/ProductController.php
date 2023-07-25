@@ -31,11 +31,13 @@ class ProductController extends Controller
     }
     public function store(ProductRequest $request)
     {
+
         $this->productService->store($request);
         return redirect()->route('admin.product.index');
     }
     public function edit(Product $product,CategoryService $categoryService)
     {
+//        dd($product->types->toArray());
         $categories=$categoryService->CachedCategories();
         return view('admin.product.form',['model'=>$product,'categories'=>$categories]);
     }

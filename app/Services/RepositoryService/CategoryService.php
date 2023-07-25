@@ -18,7 +18,7 @@ class CategoryService
     }
     public function dataAllWithPaginate()
     {
-        return $this->categoryRepository->paginate(10,['parent.translations']);//,'attributes:id'
+        return $this->categoryRepository->paginate(10,['products.translations','parent.translations']);//,'attributes:id'
     }
 
     public function store($request)
@@ -65,6 +65,17 @@ class CategoryService
         return $model;
     }
 
+    public function findCategory($slug)
+    {
+//        $this->categoryRepository->getModelClass()->withCount(['products])
+        return Category::with(['translations','products.translations','attributes.translations','attributes.values.translations'])->whereTranslation('slug',$slug,app()->getLocale())->first();
+//            Category::whereTranslation('slug',$slug,app()->getLocale());
+    }
+
+    public function findChildIds($category_id)
+    {
+        return Category::select('id')->where('parent_id',$category_id)->pluck('id')->toArray();
+    }
     public function delete($model)
     {
         self::ClearCached();

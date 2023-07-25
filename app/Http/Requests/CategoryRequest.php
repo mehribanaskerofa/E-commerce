@@ -10,7 +10,7 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         $data= [
-            'image'=>[Rule::requiredIf(request()->method==self::METHOD_POST),'required','image','mimes:jpg,jpeg,png'],
+            'image'=>[Rule::requiredIf(request()->method==self::METHOD_POST),'image','mimes:jpg,jpeg,png'],
             'active'=>'nullable|boolean',
             'parent_id'=>'nullable|exists:categories,id',
             'attributes'=>'nullable|array',

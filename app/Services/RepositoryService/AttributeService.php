@@ -15,6 +15,10 @@ class AttributeService
     {
         return $this->attributeRepository->paginate(10,['translations']);
     }
+    public function dataAllWithoutPaginate()
+    {
+        return $this->attributeRepository->all(['translations']);
+    }
 
     public function store($request)
     {
